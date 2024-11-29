@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { Alert } from "@mui/material";
 
@@ -12,7 +12,10 @@ const override = {
 };
 
 const LoginPage = () => {
-  const { login, loading, error } = useContext(AuthContext);
+  const navigate = useNavigate(); // Initialize navigate function
+
+  const { login, loading, error, token, isAuthenticated } =
+    useContext(AuthContext);
 
   const [loginFormData, setLoginFormData] = useState({
     email: "",
@@ -26,6 +29,11 @@ const LoginPage = () => {
     { feildName: "password", label: "Password" },
   ];
 
+  // CHECK ALREDY AUTHENTICATED
+  useEffect(() => {
+    if (isAuthenticated && token) navigate("/");
+  }, [isAuthenticated, token, navigate]);
+
   //   CALL LOGIN API
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,6 +41,7 @@ const LoginPage = () => {
     login(loginFormData)
       .then((res) => {
         console.log(res);
+        // if (res?.status === 200) return navigate("/");
       })
       .catch((err) => {
         console.log(err);

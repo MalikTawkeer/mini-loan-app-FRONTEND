@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { BeatLoader } from "react-spinners";
 import { Alert } from "@mui/material";
 
 import { AuthContext } from "../store/auth.context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const override = {
   display: "block",
@@ -12,7 +12,10 @@ const override = {
 };
 
 const Signup = () => {
-  const { register, loading, error, setError } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const { register, loading, error, setError, isAuthenticated, token } =
+    useContext(AuthContext);
 
   const [signUpFormData, setSignUpFormData] = useState({
     name: "",
@@ -43,6 +46,11 @@ const Signup = () => {
       label: "Confirm Password",
     },
   ];
+
+  // CHECK ALREDY AUTHENTICATED
+  useEffect(() => {
+    if (isAuthenticated && token) return navigate("/");
+  }, [isAuthenticated, token]);
 
   const handleRegister = (e) => {
     e.preventDefault();
