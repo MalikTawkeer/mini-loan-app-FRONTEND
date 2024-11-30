@@ -2,7 +2,7 @@ Here’s the updated concise `README.md`:
 
 ---
 
-# **Project Name**
+# **Mini loan web app**
 
 A React.js project built with Material-UI, React Router, and React Spinners.
 
