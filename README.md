@@ -1,8 +1,7 @@
-Here’s a template for a professional and informative `README.md` file for a React frontend project:
 
 ---
 
-# **Project Name**
+# **Mini loan web app**
 
 A brief description of your project. Include the main purpose, audience, and key features.
 
@@ -40,6 +39,7 @@ List the main technologies or libraries used:
 - [Material-UI](https://mui.com/) (or Tailwind CSS)
 - [Axios](https://axios-http.com/) for API calls
 - [React Router](https://reactrouter.com/) for navigation
+- [React spinners] for Spinners
 
 ---
 
