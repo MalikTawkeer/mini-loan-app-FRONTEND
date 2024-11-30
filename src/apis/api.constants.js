@@ -11,5 +11,11 @@ export const RETRIVE_LOAN_REPAYMENTS_ENDPOINT =
   "api/repayment/loans/repayments/history/67485bedfdb3bdb6246a7b14"; // loanID
 
 // REPAYMENT APIS
-export const PAY_LOAN_REPAYMENT_ENDPOINT =
-  "api/repayment/loans/repayments/"; // loanId/repaymentId
+export const PAY_LOAN_REPAYMENT_ENDPOINT = "api/repayment/loans/repayments/"; // loanId/repaymentId
+
+//************** */ ADMIN ENDPONINTS
+export const RETRIVE_LOANS_BY_LOAN_STATUS =
+  "api/loan/admin/loans/status"; //?status=PENDING
+
+export const APPROVE_LOAN_BY_LOAN_ID =
+  "api/loan/admin/loans/approve/";

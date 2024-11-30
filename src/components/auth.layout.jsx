@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import { PropagateLoader } from "react-spinners";
 
@@ -7,6 +7,7 @@ import isTokenValid from "../utils/check.token.validity.js";
 import { AuthContext } from "../store/auth.context.jsx";
 
 const AuthLayout = ({ children, redirectPath = "/login" }) => {
+  const location = useLocation();
   const { isAuthenticated, setIsAuthenticated, role } = useContext(AuthContext);
 
   useEffect(() => {
@@ -31,7 +32,11 @@ const AuthLayout = ({ children, redirectPath = "/login" }) => {
   }
 
   // REDIRECT TO ADMIN DASHBOARD
-  if (isAuthenticated && role === "admin") {
+  if (
+    isAuthenticated &&
+    role === "admin" &&
+    location.pathname !== "/admin/dashboard"
+  ) {
     return <Navigate to={"/admin/dashboard"} replace />;
   }
 

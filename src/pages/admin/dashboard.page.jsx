@@ -2,12 +2,12 @@ import React from "react";
 
 import Container from "../../components/container";
 
-const AdminDashboardPage = () => {
-  console.log("DashboardPage");
+import LoanTable from "../../components/admin/admin.loan.table.component";
 
+const AdminDashboardPage = () => {
   return (
     <Container>
-      <div className=" text-red-400 mt-20">DashboardPage</div>
+      <LoanTable />
     </Container>
   );
 };

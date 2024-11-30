@@ -9,6 +9,7 @@ import AuthLayout from "../components/auth.layout.jsx";
 const AdminDashboardPage = React.lazy(() =>
   import("../pages/admin/dashboard.page.jsx")
 );
+
 const LoanPage = React.lazy(() => import("../pages/loans.pages.jsx"));
 
 const LoginPage = React.lazy(() => import("../pages/login.page.jsx"));
