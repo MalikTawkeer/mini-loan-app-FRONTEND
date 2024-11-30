@@ -33,11 +33,9 @@ const LoginPage = () => {
             <h1 className=" px-6 pt-10 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign in to your account as
             </h1>
-
-            <div className=" m-4 flex justify-center items-center">
-              <LoginTabs />
-            </div>
           </div>
+
+          <LoginTabs />
         </div>
       </div>
     </section>
