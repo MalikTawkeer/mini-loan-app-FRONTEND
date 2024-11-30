@@ -1,10 +1,10 @@
-Here’s the updated concise `README.md`:
+Here’s an updated `README.md` file reflecting the additional features:
 
 ---
 
 # **Mini loan web app**
 
-A React.js project built with Material-UI, React Router, and React Spinners.
+A React.js project for managing user loans, built with Material-UI, React Router, Axios and React Spinners.
 
 ---
 
@@ -12,8 +12,23 @@ A React.js project built with Material-UI, React Router, and React Spinners.
 - **React.js**
 - **Material-UI**
 - **React Router**
+- **Axios**
 - **React Spinners**
-- - **Axios**
+
+---
+
+## **Features**
+
+### **User**
+- Sign up and log in.
+- View existing loans.
+- Add new loan requests.
+- Repay loans.
+
+### **Admin**
+- Sign in as an admin.
+- View all loan requests.
+- Approve loans.
 
 ---
 
@@ -28,7 +43,11 @@ A React.js project built with Material-UI, React Router, and React Spinners.
    ```bash
    git clone https://github.com/yourusername/project-name.git
    ```
-2. Install dependencies:
+2. Navigate to the project directory:
+   ```bash
+   cd project-name
+   ```
+3. Install dependencies:
    ```bash
    npm install
    ```
@@ -40,14 +59,3 @@ npm run dev
 ```
 
 ---
-
-## **Features**
-- Built with React.js for a dynamic user interface.
-- Styled using Material-UI.
-- Navigation handled by React Router.
-- Loading animations with React Spinners.
-
----
-
---- 
-
