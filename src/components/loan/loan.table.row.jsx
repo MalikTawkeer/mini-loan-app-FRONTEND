@@ -15,9 +15,19 @@ import { Chip } from "@mui/material";
 import Button from "@mui/material/Button";
 import PaymentIcon from "@mui/icons-material/Payment";
 
+import Modal from "../modal.component";
+import RepaymentForm from "../repayment/loan.repayment.form";
+
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+
+  // MODAL STATES
+  const [openModel, setOpenModel] = React.useState(false);
+
+  const [loanId, setLoanId] = React.useState("");
+  const [repaymentId, setRepaymentId] = React.useState("");
+  const [repaymentAmt, setRepaymentAmt] = React.useState(0);
 
   return (
     <React.Fragment>
@@ -96,7 +106,7 @@ function Row(props) {
 
                   <TableBody>
                     {row?.repayments?.map((historyRow) => (
-                      <TableRow key={historyRow.date}>
+                      <TableRow key={historyRow._id}>
                         <TableCell component="th" scope="row" align="center">
                           {
                             new Date(historyRow?.due_date)
@@ -129,6 +139,12 @@ function Row(props) {
                             disabled={historyRow?.state === "PAID"}
                             variant="outlined"
                             startIcon={<PaymentIcon />}
+                            onClick={() => {
+                              setLoanId(historyRow?.loan_id);
+                              setRepaymentId(historyRow?._id);
+                              setRepaymentAmt(historyRow?.amount);
+                              setOpenModel(true);
+                            }}
                           >
                             Repay
                           </Button>
@@ -142,6 +158,23 @@ function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
+
+      {openModel && (
+        <Modal
+          title={"Repayment form"}
+          open={openModel}
+          closeModal={setOpenModel}
+        >
+          {
+            <RepaymentForm
+              closeModal={setOpenModel}
+              amount={repaymentAmt}
+              loanId={loanId}
+              repaymentId={repaymentId}
+            />
+          }
+        </Modal>
+      )}
     </React.Fragment>
   );
 }

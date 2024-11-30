@@ -1,6 +1,7 @@
 import React, { useEffect, createContext, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 import isTokenValid from "../utils/check.token.validity.js";
 
@@ -16,6 +17,7 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(Cookies.get("jwt_tkn") || null);
+  const [role, setRole] = useState("customer");
 
   const [userData, setUserData] = useState({
     name: "",
@@ -34,6 +36,10 @@ export const AuthContextProvider = ({ children }) => {
       // Retrive user data
       const user = JSON.parse(localStorage.getItem("userData"));
       setUserData(user);
+
+      //EXTRACT AND SET USER ROLE
+      const decodedToken = jwtDecode(token);
+      setRole(decodedToken.role);
 
       setToken(storedToken);
       setIsAuthenticated(true);
@@ -66,7 +72,8 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const login = async ({ email, password }) => {
+  const login = async ({ email, password, role }) => {
+    console.log(role, ">>>>>>>>.....>>>>");
     setLoading(true);
     setError("");
 
@@ -76,6 +83,7 @@ export const AuthContextProvider = ({ children }) => {
         {
           email,
           password,
+          role,
         },
         {
           withCredentials: true,
@@ -121,7 +129,9 @@ export const AuthContextProvider = ({ children }) => {
         setIsAuthenticated,
         token,
         userData,
+        role,
         loading,
+        setLoading,
         error,
         setError,
         register,

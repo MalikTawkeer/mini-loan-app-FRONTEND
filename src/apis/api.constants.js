@@ -12,4 +12,4 @@ export const RETRIVE_LOAN_REPAYMENTS_ENDPOINT =
 
 // REPAYMENT APIS
 export const PAY_LOAN_REPAYMENT_ENDPOINT =
-  "api/repayment/loans/repayments/6748a3dec380eef6fad5ed7d/6748b137ade0954409"; // loanId/repaymentId
+  "api/repayment/loans/repayments/"; // loanId/repaymentId

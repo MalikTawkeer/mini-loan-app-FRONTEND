@@ -5,10 +5,10 @@ import { PropagateLoader } from "react-spinners";
 import App from "../App.jsx";
 import AuthLayout from "../components/auth.layout.jsx";
 
-// import Spinner from "../components/Spinner.jsx";
-
 // Lazy loaded components
-const Home = React.lazy(() => import("../pages/home.page.jsx"));
+const AdminDashboardPage = React.lazy(() =>
+  import("../pages/admin/dashboard.page.jsx")
+);
 const LoanPage = React.lazy(() => import("../pages/loans.pages.jsx"));
 
 const LoginPage = React.lazy(() => import("../pages/login.page.jsx"));
@@ -47,6 +47,17 @@ const router = createBrowserRouter([
           <Suspense fallback={<PropagateLoader color="#1bccd2" size={10} />}>
             <SignupPage />
           </Suspense>
+        ),
+      },
+
+      {
+        path: "/admin/dashboard",
+        element: (
+          <AuthLayout>
+            <Suspense fallback={<PropagateLoader color="#1bccd2" size={10} />}>
+              <AdminDashboardPage />
+            </Suspense>
+          </AuthLayout>
         ),
       },
 

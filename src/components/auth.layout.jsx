@@ -7,7 +7,7 @@ import isTokenValid from "../utils/check.token.validity.js";
 import { AuthContext } from "../store/auth.context.jsx";
 
 const AuthLayout = ({ children, redirectPath = "/login" }) => {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, setIsAuthenticated, role } = useContext(AuthContext);
 
   useEffect(() => {
     const token = Cookies.get("jwt_tkn"); // Get token directly from cookies
@@ -28,6 +28,11 @@ const AuthLayout = ({ children, redirectPath = "/login" }) => {
 
   if (isAuthenticated === false) {
     return <Navigate to={redirectPath} replace />;
+  }
+
+  // REDIRECT TO ADMIN DASHBOARD
+  if (isAuthenticated && role === "admin") {
+    return <Navigate to={"/admin/dashboard"} replace />;
   }
 
   // Render children if the token is valid

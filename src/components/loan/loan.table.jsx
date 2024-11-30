@@ -11,62 +11,24 @@ import MoneyIcon from "@mui/icons-material/Money";
 import Typography from "@mui/material/Typography";
 
 import Row from "./loan.table.row";
-
 import Container from "../container";
+import Modal from "../modal.component";
+import LoanApplicationForm from "./loan.application.form.jsx";
 
-import { fetchUserLoans } from "../../services/loan.services.js";
 import { AuthContext } from "../../store/auth.context.jsx";
-
-function createData(name, calories, fat) {
-  return {
-    name,
-    calories,
-    fat,
-    history: [
-      {
-        date: "2020-01-05",
-        customerId: "11091700",
-        amount: 3,
-      },
-      {
-        date: "2020-01-02",
-        customerId: "Anonymous",
-        amount: 1,
-      },
-    ],
-  };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0),
-  createData("Ice cream sandwich", 237, 9.0),
-  createData("Eclair", 262, 16.0),
-  createData("Cupcake", 305, 3.7),
-  createData("Gingerbread", 356, 16.0),
-];
+import { LoanContext } from "../../store/loan.context.jsx";
 
 const LoanTable = () => {
   const { token } = React.useContext(AuthContext);
-
-  const [loans, setLoans] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState("");
+  const { fetchUserLoans, loans, loading, error } =
+    React.useContext(LoanContext);
 
   React.useEffect(() => {
-    fetchUserLoans(token)
-      .then((res) => {
-        setLoans(res?.data?.loans);
-        console.log(res?.data?.loans);
-
-        setError("");
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        setError(err?.message);
-        console.log(err, "EEEERRRRRRR");
-      });
+    fetchUserLoans();
   }, []);
+
+  // MODAL STATES
+  const [openModel, setOpenModel] = React.useState(false);
 
   return (
     <Container>
@@ -84,7 +46,12 @@ const LoanTable = () => {
 
       <TableContainer component={Paper} className=" mt-5 mb-10">
         <div className=" flex justify-end px-5 py-3 mt-4">
-          <Button variant="contained" color="primary" startIcon={<MoneyIcon />}>
+          <Button
+            onClick={() => setOpenModel(true)}
+            variant="contained"
+            color="primary"
+            startIcon={<MoneyIcon />}
+          >
             New Loan
           </Button>
         </div>
@@ -106,12 +73,22 @@ const LoanTable = () => {
           </TableHead>
 
           <TableBody>
-            {loans.map((row) => (
-              <Row key={row.name} row={row} />
+            {loans?.map((row) => (
+              <Row key={row._id} row={row} />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      {openModel && (
+        <Modal
+          title={"Repayment form"}
+          open={openModel}
+          closeModal={setOpenModel}
+        >
+          {<LoanApplicationForm closeModal={setOpenModel} />}
+        </Modal>
+      )}
     </Container>
   );
 };
